@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "apis": [
+    {
+      "identifier": "kotani-pay",
+      "source": "@kotani-pay/v3#ksp31rmi5tezia",
+      "integrity": "sha512-Ycp3atGQGogegRCrQaaRVbnfBQOsgQs5Yp5iUm0SbZeeEcQ7RlLihv69aHhsbaIijS+r1802kK+3n54mJD4Kug==",
+      "installerVersion": "6.1.3"
+    }
+  ]
+}
