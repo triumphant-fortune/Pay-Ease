@@ -1,6 +1,5 @@
 'use client'
 
-import { useWallet } from '@solana/wallet-adapter-react'
 import { useState } from 'react'
 import { SubscriptionState } from '../SubscriptionFlow'
 
@@ -13,7 +12,6 @@ export default function PaymentStep({
   onBack: () => void
   onSuccess: (txHash: string) => void
 }) {
-  const { connected, connect } = useWallet()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -29,11 +27,7 @@ export default function PaymentStep({
       setLoading(true)
       setError(null)
 
-      if (!connected) {
-        await connect()
-      }
-
-      // MOCK: Replace with real Solana USDC transfer logic
+      // MOCK: Replace with real Base USDC transfer logic
       await new Promise((res) => setTimeout(res, 2000))
 
       const mockTxHash = '5J9e...MockTxHash'
@@ -84,12 +78,12 @@ export default function PaymentStep({
           disabled={loading}
           className="px-6 py-3 rounded-xl bg-indigo-600 text-white font-semibold disabled:opacity-50"
         >
-          {loading ? 'Processing...' : connected ? 'Pay & Activate' : 'Connect Wallet'}
+          {loading ? 'Processing...' : 'Pay & Activate'}
         </button>
       </div>
 
       <p className="mt-4 text-xs text-gray-500 text-center">
-        Payment is made in USDC on Solana. We handle the subscription activation.
+        Payment is made in USDC on Base (Ethereum). We handle the subscription activation.
       </p>
     </div>
   )

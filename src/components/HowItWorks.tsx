@@ -5,8 +5,8 @@ export default function HowItWorks() {
         title: 'Choose your subscription',
         desc: 'Select the platform and plan you want.'
       }, {
-        title: 'Pay with USDC',
-        desc: 'Connect your wallet and send USDC on Solana.'
+        title: 'Pay with USDC on Base',
+        desc: 'Use Base (Ethereum L2) to pay in USDC.'
       }, {
         title: 'Get activated',
         desc: 'We handle the rest. Your subscription goes live.'
