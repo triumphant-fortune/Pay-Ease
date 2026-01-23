@@ -10,6 +10,9 @@ PayEase lets users activate subscriptions without credit cards by paying in USDC
 - Payments are off-ramped via Kotani and fiat funds card issuance.
 - Waitlist capture with a simple admin view.
 
+# Presentation slide
+[Slide deck](https://docs.google.com/presentation/d/1h01nHkdwbTJNfgF7hzK4W7L8q9sKtHtS2YvXQ70JzU0/edit?usp=sharing)
+
 ## User flow
 
 1. User selects platform and plan (e.g., X Premium $8).
