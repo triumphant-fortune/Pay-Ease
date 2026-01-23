@@ -14,7 +14,7 @@ PayEase lets users activate subscriptions without credit cards by paying in USDC
 
 1. User selects platform and plan (e.g., X Premium $8).
 2. User pays $10 USDC on Base (includes $2 convenience fee).
-3. Backend verifies payment, off-ramps via Kotani, funds card issuer (Bridgecard/Miden).
+3. Backend verifies payment, off-ramps via Kotani, funds card issuer (Bridgecard).
 4. User receives a single-use card (number, expiry, CVV) locked to the merchant.
 5. User completes checkout directly on the merchant site.
 
