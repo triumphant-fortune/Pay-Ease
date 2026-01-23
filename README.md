@@ -16,7 +16,7 @@ Frontend
 - Next.js 16 (App Router)
 - React 19
 - Tailwind CSS
-- Base (Ethereum) USDC messaging (no wallet UI yet)
+- wagmi + RainbowKit (Base Sepolia wallet connect)
 
 Backend
 - Node.js + Express
@@ -75,7 +75,17 @@ CARD_PROVIDER_API_KEY=your_provider_key
 PORT=4000
 ```
 
-Note: The frontend does not currently read env vars. The backend loads `.env` from its current working directory.
+Frontend env (`.env.local` in repo root):
+
+```bash
+NEXT_PUBLIC_API_BASE_URL=http://localhost:4000
+NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=your_walletconnect_project_id
+NEXT_PUBLIC_USDC_CONTRACT=0x...
+NEXT_PUBLIC_PAYEASE_WALLET=0x...
+NEXT_PUBLIC_BASE_RPC_URL=https://your-base-sepolia-rpc
+```
+
+Note: The backend loads `.env` from its current working directory.
 
 ### 3) Run locally
 
@@ -105,6 +115,10 @@ Base URL: `http://localhost:4000`
 - `POST /api/webhooks/kotani`
   - Called by Kotani when payment status changes.
 
+- `POST /api/waitlist`
+  - Body: `{ "email": "user@example.com", "useCase": "X Blue", "location": "Lagos, Nigeria" }`
+  - Response: `{ id }`
+
 ## How payments are fulfilled
 
 1. Frontend creates a payment intent.
@@ -117,6 +131,7 @@ Base URL: `http://localhost:4000`
 - X fulfillment is mocked in `backend/src/services/xFulfillment.service.js`.
 - Replit is in the UI but not wired to backend yet.
 - Consider adding a proper `/.env.example` and moving backend envs to `backend/.env`.
+- If your frontend runs on a different port (e.g. `3001`), add it to the CORS allowlist in `backend/src/app.js`.
 
 ## Scripts
 

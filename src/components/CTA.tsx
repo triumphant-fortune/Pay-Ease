@@ -2,14 +2,21 @@ import Link from 'next/link'
 
 export default function CTA() {
   return (
-    <section className="px-6 py-20 text-center max-w-4xl mx-auto">
-      <h2 className="text-3xl md:text-4xl font-bold">Ready to activate your subscription?</h2>
-      <p className="mt-4 text-gray-400">
-        No cards. No banks. Just USDC on Base → subscription.
-      </p>
-      <Link href="/subscribe" className="mt-8 inline-block px-8 py-4 rounded-xl bg-indigo-600 text-white font-semibold">
-        Start now
-      </Link>
+    <section className="mx-auto max-w-5xl px-6 py-20">
+      <div className="rounded-3xl border border-white/10 bg-white/5 p-10 text-center md:p-14">
+        <h2 className="text-3xl md:text-4xl">Ready to activate your subscription?</h2>
+        <p className="mt-4 text-gray-300">
+          Pay once in USDC on Base. We handle the activation and confirmation.
+        </p>
+        <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <Link href="/subscribe" className="rounded-xl bg-emerald-400 px-8 py-4 font-semibold text-black shadow-[0_12px_35px_rgba(52,211,153,0.3)]">
+            Start now
+          </Link>
+          <a href="#platforms" className="rounded-xl border border-white/20 px-8 py-4 text-white/90">
+            View platforms
+          </a>
+        </div>
+      </div>
     </section>
   )
 }

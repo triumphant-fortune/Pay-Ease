@@ -21,9 +21,24 @@ export default function SubscriptionFlow() {
     plan: null,
     accountIdentifier: '',
   })
+  const steps = ['Platform', 'Plan', 'Account', 'Payment', 'Done']
 
   return (
-    <div className="w-full max-w-xl bg-white/5 border border-white/10 rounded-2xl p-6">
+    <div className="rise-in w-full max-w-xl rounded-3xl border border-white/10 bg-black/70 p-6 shadow-[0_30px_80px_rgba(0,0,0,0.45)]">
+      <div className="mb-6 flex items-center justify-between text-xs uppercase tracking-[0.3em] text-gray-400">
+        <span>Subscription flow</span>
+        <span>{step + 1} / {steps.length}</span>
+      </div>
+      <div className="mb-8 flex items-center gap-2">
+        {steps.map((label, i) => (
+          <div key={label} className="flex-1">
+            <div className={`h-1.5 rounded-full ${i <= step ? 'bg-emerald-400' : 'bg-white/10'}`} />
+            <div className={`mt-2 text-[11px] ${i === step ? 'text-white' : 'text-gray-500'}`}>
+              {label}
+            </div>
+          </div>
+        ))}
+      </div>
       {step === 0 && (
         <PlatformStep
           onNext={(platform) => {
