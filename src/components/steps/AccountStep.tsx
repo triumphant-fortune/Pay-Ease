@@ -22,12 +22,18 @@ export default function AccountStep({
           : 'Enter the email associated with your Replit account.'}
       </p>
 
+      <label className="mt-6 block text-xs uppercase tracking-[0.3em] text-gray-500">
+        Account identifier
+      </label>
       <input
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder={platform === 'x' ? '@username or email' : 'email@example.com'}
-        className="mt-6 w-full p-3 rounded-xl bg-black border border-white/10 text-white placeholder-gray-500"
+        className="mt-3 w-full rounded-2xl border border-white/10 bg-white/5 p-4 text-white placeholder-gray-500 focus:border-amber-300/50 focus:outline-none"
       />
+      <p className="mt-3 text-xs text-gray-500">
+        We only use this to activate your subscription and send confirmation.
+      </p>
 
       <div className="mt-6 flex justify-between">
         <button onClick={onBack} className="text-sm text-gray-400 hover:text-white">
@@ -36,7 +42,7 @@ export default function AccountStep({
         <button
           disabled={!value}
           onClick={() => onNext(value)}
-          className="px-6 py-2 rounded-xl bg-indigo-600 text-white font-semibold disabled:opacity-50"
+          className="rounded-xl bg-amber-300 px-6 py-2 font-semibold text-black disabled:opacity-50"
         >
           Continue
         </button>
