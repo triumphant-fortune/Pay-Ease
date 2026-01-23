@@ -1,14 +1,30 @@
-# PayEase (Subzero Frontend)
+# PayEase
 
-PayEase is a full-stack hackathon project that lets users activate subscriptions without credit cards by paying in USDC on Base (Ethereum). The frontend is a Next.js landing page + subscription wizard, and the backend handles payment intent creation, Kotani checkout, and fulfillment for X (Twitter) Blue.
+PayEase lets users activate subscriptions without credit cards by paying in USDC on Base (Ethereum).
 
-## What the app does
+## Overview
 
-- Landing page marketing “subscriptions without cards, powered by USDC on Base”.
-- Multi-step subscription flow: platform → plan → account → payment → success.
-- Backend payment intent creation using Kotani Pay, plus webhook + polling to confirm payment and fulfill.
+- Non-custodial payment bridge for X Premium and similar subscriptions.
+- Users pay USDC on Base and receive a single-use virtual card locked to the merchant domain.
+- No passwords collected. Users complete checkout themselves.
+- Payments are off-ramped via Kotani and fiat funds card issuance.
+- Waitlist capture with a simple admin view.
 
-Supported platform right now: X (Twitter) Blue. Replit is shown in the UI but not wired in the backend yet.
+## User flow
+
+1. User selects platform and plan (e.g., X Premium $8).
+2. User pays $10 USDC on Base (includes $2 convenience fee).
+3. Backend verifies payment, off-ramps via Kotani, funds card issuer (Bridgecard/Miden).
+4. User receives a single-use card (number, expiry, CVV) locked to the merchant.
+5. User completes checkout directly on the merchant site.
+
+## Features
+
+- Wallet connect (wagmi + RainbowKit) on Base Sepolia for demo payments.
+- One-time card reveal with expiry countdown and copy-to-clipboard.
+- Waitlist form + admin list view.
+
+Supported platform right now: X (Twitter) Blue.
 
 ## Tech stack
 
@@ -26,8 +42,8 @@ Backend
 
 ## Project structure
 
-- `src/` – Next.js frontend
-- `backend/` – Express API + payment services
+- `src/` - Next.js frontend
+- `backend/` - Express API + payment services
 
 ## Getting started
 
@@ -48,7 +64,7 @@ npm install
 
 ### 2) Configure environment variables
 
-Create a `.env` in `backend/` (or set `DOTENV_CONFIG_PATH`) for the backend. Example (do not commit secrets):
+Create a `.env` in `backend/` (do not commit secrets):
 
 ```bash
 # Kotani
@@ -106,43 +122,19 @@ npm run dev
 
 Open http://localhost:3000.
 
-## API
 
-Base URL: `http://localhost:4000`
+## Notes
 
-- `POST /api/payments/intent`
-  - Body: `{ "currency": "USDC", "xHandle": "elonmusk" }`
-  - Response: `{ paymentId, payUrl }`
-
-- `POST /api/webhooks/kotani`
-  - Called by Kotani when payment status changes.
-
-- `POST /api/waitlist`
-  - Body: `{ "email": "user@example.com", "useCase": "X Blue", "location": "Lagos, Nigeria" }`
-  - Response: `{ id }`
-
-## How payments are fulfilled
-
-1. Frontend creates a payment intent.
-2. Backend creates a Kotani checkout and returns a `payUrl`.
-3. Webhook or poller verifies payment success.
-4. Backend marks payment fulfilled and triggers X subscription fulfillment (currently mocked).
-
-## Notes / TODO
-
-- X fulfillment is mocked in `backend/src/services/xFulfillment.service.js`.
-- Replit is in the UI but not wired to backend yet.
-- Consider adding a proper `/.env.example` and moving backend envs to `backend/.env`.
-- If your frontend runs on a different port (e.g. `3001`), add it to the CORS allowlist in `backend/src/app.js`.
+- Remember to add your frontend url to the CORS allowlist in `backend/src/app.js`.
 
 ## Scripts
 
 Frontend:
-- `npm run dev` – dev server
-- `npm run build` – production build
-- `npm run start` – start production server
-- `npm run lint` – lint
+- `npm run dev` - dev server
+- `npm run build` - production build
+- `npm run start` - start production server
+- `npm run lint` - lint
 
 Backend:
-- `npm run dev` – dev server with nodemon
-- `npm run start` – production server
+- `npm run dev` - dev server with nodemon
+- `npm run start` - production server
