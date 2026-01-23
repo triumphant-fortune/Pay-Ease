@@ -4,7 +4,7 @@ import { Fraunces, Space_Grotesk } from 'next/font/google'
 import Web3Provider from '@/components/Web3Provider'
 
 export const metadata = {
-  title: 'Subzero — Subscriptions with USDC on Base',
+  title: 'PayEase — Subscriptions with USDC on Base',
   description: 'Activate global subscriptions without cards or banks.',
 }
 
