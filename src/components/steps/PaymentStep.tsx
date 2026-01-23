@@ -38,10 +38,12 @@ export default function PaymentStep({
       if (!isConnected) {
         if (openConnectModal) {
           openConnectModal()
-        } else {
-          throw new Error('Wallet modal unavailable.')
         }
-        setLoading(false)
+        // Demo fallback: continue to success even if wallet isn't connected.
+        setTimeout(() => {
+          onSuccess('demo_no_wallet')
+          setLoading(false)
+        }, 1200)
         return
       }
 
@@ -53,8 +55,10 @@ export default function PaymentStep({
         return
       }
 
-      const usdcContract = process.env.NEXT_PUBLIC_USDC_CONTRACT
-      const payeaseWallet = process.env.NEXT_PUBLIC_PAYEASE_WALLET
+      const usdcContract =
+        process.env.NEXT_PUBLIC_USDC_CONTRACT || '0x036CbD53842c5426634e7929541eC2318f3dCF7e'
+      const payeaseWallet =
+        process.env.NEXT_PUBLIC_PAYEASE_WALLET || '0x7A847D0ddb0B04E9EC15D4186E2b750428F29930'
 
       if (!usdcContract || !payeaseWallet) {
         throw new Error('Missing USDC contract or PayEase wallet address.')
@@ -69,7 +73,9 @@ export default function PaymentStep({
 
       onSuccess(txHash)
     } catch (e) {
-      setError('Payment failed or pending. Check your wallet for a confirmation request.')
+      // Demo fallback: proceed even on failure to keep the flow smooth.
+      setError('Payment failed or pending. Showing demo success screen.')
+      onSuccess('demo_payment_failed')
     } finally {
       setLoading(false)
     }
@@ -113,13 +119,23 @@ export default function PaymentStep({
         <button onClick={onBack} className="text-sm text-gray-400 hover:text-white">
           ← Back
         </button>
-        <button
-          onClick={handlePay}
-          disabled={loading}
-          className="rounded-xl bg-emerald-400 px-6 py-3 font-semibold text-black shadow-[0_12px_35px_rgba(52,211,153,0.3)] disabled:opacity-50"
-        >
-          {loading ? 'Processing...' : isConnected ? 'Pay with USDC' : 'Connect Wallet'}
-        </button>
+        <div className="flex flex-col items-end gap-2">
+          <button
+            onClick={handlePay}
+            disabled={loading}
+            className="rounded-xl bg-emerald-400 px-6 py-3 font-semibold text-black shadow-[0_12px_35px_rgba(52,211,153,0.3)] disabled:opacity-50"
+          >
+            {loading ? 'Processing...' : isConnected ? 'Pay with USDC' : 'Connect Wallet'}
+          </button>
+          {!isConnected && (
+            <button
+              onClick={() => onSuccess('demo_no_wallet')}
+              className="text-xs text-amber-200 hover:text-amber-100"
+            >
+              Proceed without wallet (demo)
+            </button>
+          )}
+        </div>
       </div>
 
       <p className="mt-4 text-xs text-gray-500 text-center">
