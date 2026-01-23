@@ -73,6 +73,7 @@ CARD_PROVIDER_API_KEY=your_provider_key
 
 # Server
 PORT=4000
+ADMIN_PASSWORD=payease@2026#
 ```
 
 Frontend env (`.env.local` in repo root):
@@ -83,6 +84,7 @@ NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=your_walletconnect_project_id
 NEXT_PUBLIC_USDC_CONTRACT=0x...
 NEXT_PUBLIC_PAYEASE_WALLET=0x...
 NEXT_PUBLIC_BASE_RPC_URL=https://your-base-sepolia-rpc
+NEXT_PUBLIC_ADMIN_PASSWORD=payease@2026#
 ```
 
 Note: The backend loads `.env` from its current working directory.

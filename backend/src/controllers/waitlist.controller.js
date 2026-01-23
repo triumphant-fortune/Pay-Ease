@@ -17,3 +17,16 @@ export const createWaitlistEntry = async (req, res) => {
 
   return res.status(201).json({ id: entry._id });
 };
+
+export const listWaitlistEntries = async (req, res) => {
+  const adminPassword =
+    process.env.ADMIN_PASSWORD || "payease@2026#";
+  const provided = req.headers["x-admin-password"];
+
+  if (!provided || provided !== adminPassword) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+
+  const entries = await Waitlist.find().sort({ createdAt: -1 }).lean();
+  return res.json(entries);
+};
